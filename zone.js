@@ -68,7 +68,12 @@ var objectSchema = [
       { name: "scale",                type: "floatvector4" },
       { name: "id",                   type: "uint32" },
       { name: "unknownByte1",         type: "uint8" },
-      { name: "unknownFloat1",        type: "float" }
+      { name: "unknownFloat1",        type: "float" },
+      { name: "unknownFloat2",        type: "float" },
+      { name: "unknownFloat3",        type: "float" },
+      { name: "unknownFloat4",        type: "float" },
+      { name: "unknownFloat5",        type: "float" },
+      { name: "unknownFloat6",        type: "float" }
     ]}
 ];
 
@@ -182,7 +187,6 @@ function readZone(data, offset) {
     var zone = DataSchema.parse(schemaPS2, data, offset);
   }
   else {
-    var fc = data.readNullTerminatedString;
     var zone = DataSchema.parse(schema, data, offset);
   }
 

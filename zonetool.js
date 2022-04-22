@@ -32,7 +32,8 @@ switch (mode) {
         throw "inPath does not exist";
       }
       var data = fs.readFileSync(inPath);
-      let dd = new ExtBuffer(data, 0, data.length);
+      console.log(data.length);
+      let dd = new ExtBuffer(data, 23639282, 10);
       zone = Zone.read(dd);
       console.log("Converting ZONE to JSON...");
       if (!outPath) {

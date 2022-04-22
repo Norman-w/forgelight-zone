@@ -1,5 +1,5 @@
 require("./extbuffer")
-var DEBUG = true,
+var DEBUG = false,
     DEBUGINDENT = 0;
 
 function parse(fields, data, offset, referenceData) {
@@ -33,6 +33,10 @@ function parse(fields, data, offset, referenceData) {
                     numElements = field.length;
                 } else {
                     if (field.type == "array") {
+                      // if (offset>=969714)
+                      // {
+                      //   break;
+                      // }
                         numElements = data.readUInt32LE(offset);
                         offset += 4;
                     } else if (field.type == "array8") {
@@ -57,7 +61,8 @@ function parse(fields, data, offset, referenceData) {
                         elements.push(element.result.element);
                     }
                 }
-                result[field.name] = elements;
+              // numElements
+                 result[field.name] = elements;
                 break;
             case "debugoffset":
                 result[field.name] = offset;
@@ -214,20 +219,41 @@ function parse(fields, data, offset, referenceData) {
                 break;
             case "string":
                 string = data.readPrefixedStringLE(offset);
+              // if (string.index("SpotLight_1556669119"))
+              // {
+              //   console.log(string)
+              // }
                 result[field.name] = string;
                 offset += 4 + string.length;
                 break;
             case "fixedlengthstring":
                 string = data.toString("utf8", offset, offset+field.length);
+              // if (string.index("SpotLight_1556669119"))
+              // {
+              //   console.log(string)
+              // }
                 result[field.name] = string;
                 offset += string.length;
                 break;
             case "nullstring":
               // data.readNullTerminatedString = ext.re
+              // if (offset ===969715)
+              // {
+              //   for (let k = 0; k < 100; k++) {
+              //     let kk = 969713 - 50 + k;
+              //     let ss = data.readNullTerminatedString(kk);
+              //     console.log(ss);
+              //   }
+              // }
                 string = data.readNullTerminatedString(offset);
+                // if (string.index("SpotLight_1556669119"))
+                // {
+                //   console.log(string)
+                // }
                 //string = readNullTerminatedString(data,offset);
               result[field.name] = string;
-                offset += 1 + string.length;
+                 offset += 1 + string.length;
+              // offset += string.length;
                 break;
             case "custom":
                 var tmp = field.parser(data, offset, referenceData);
